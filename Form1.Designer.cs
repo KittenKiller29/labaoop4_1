@@ -46,6 +46,7 @@ namespace labaoop4_1
             // 
             // checkBox1
             // 
+            this.checkBox1.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.checkBox1.AutoCheck = false;
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(12, 12);
