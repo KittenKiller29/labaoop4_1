@@ -25,30 +25,30 @@ namespace labaoop4_1
 
         }
 
-        private void Form1_Paint(object sender, PaintEventArgs e)
+        private void Form1_Paint(object sender, PaintEventArgs e)//описание события Paint
         {
             foreach (CCircle Circle in FCircles)
             {
-                Circle.drawCircle(e.Graphics);
+                Circle.drawCircle(e.Graphics);//Рисует все круги из списка
             }
         }
 
-        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        private void Form1_MouseClick(object sender, MouseEventArgs e)//описание события нажатия мыши
         {
-            if (ctrl == 0)
+            if (ctrl == 0)//не нажат ctrl
             {
                 foreach (CCircle Circle1 in FCircles)
                 {
-                    Circle1.setColor("Black");
+                    Circle1.setColor("Black");//снимает выделение со всех объектов
                 }
-                CCircle Circle = new CCircle(e.X, e.Y, 20);
+                CCircle Circle = new CCircle(e.X, e.Y, 20);//создает новый объект с выделением
                 FCircles.Add(Circle);
             }
-            if (ctrl == 1)
+            if (ctrl == 1)//нажат ctrl
             {
                 foreach (CCircle Circle1 in FCircles)
                 {
-                    if (Circle1.checkCircle(e) == true && checkBox2.Checked==true)
+                    if (Circle1.checkCircle(e) == true && checkBox2.Checked==true)//проверка на массовое выделение
                     {
                         break;
                     }
@@ -58,39 +58,39 @@ namespace labaoop4_1
             Refresh();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)//описание события нажатия на кнопку Delete
         {
             for(int i = 0; i < FCircles.Count(); i++)
             {
-                if (FCircles[i].getColor() == "Red")
+                if (FCircles[i].getColor() == "Red")//проверка выделения объектов
                 {
-                    FCircles.RemoveAt(i);
+                    FCircles.RemoveAt(i);//удаление выделенных объектов
                     i--;
                 }
             }
             Refresh();
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        private void Form1_KeyDown(object sender, KeyEventArgs e)//описание события нажатия клавиши на клавиатуре
         {
-            if (ModifierKeys==Keys.Control)
+            if (ModifierKeys==Keys.Control)//если нажатая клавиша Control
             {
-                checkBox1.Checked = !checkBox1.Checked;
+                checkBox1.Checked = !checkBox1.Checked;//устанавливает флаг в чекбокс в определенное значение
             }
-            switch (ctrl)
+            switch (ctrl)//в зависимости от состояния флага
             {
                 case 0:
                     ctrl++;
                     foreach (CCircle Circle1 in FCircles)
                     {
-                        Circle1.setCtrl(true);
+                        Circle1.setCtrl(true);//если нажат Control устанавливает определенное значение
                     }
                     break;
                 case 1:
                     ctrl = 0;
                     foreach (CCircle Circle1 in FCircles)
                     {
-                        Circle1.setCtrl(false);
+                        Circle1.setCtrl(false);//если отжат Control устанавливает определенное значение
                     }
                     break;
             }
@@ -112,19 +112,19 @@ namespace labaoop4_1
            
         }
     }
-    public class CCircle
+    public class CCircle//описание объекта круга
     {
-        private int x, y, rad;
-        private string color = "Red";
+        private int x, y, rad;//координаты и радиус
+        private string color = "Red";//цвет выделения(изначальный)
         private bool ctrl=false;
-        public CCircle(int xp, int yp, int radp)
+        public CCircle(int xp, int yp, int radp)//конструктор с параметрами
         {
             x = xp;
             y = yp;
             rad = radp;
 
         }
-        public void drawCircle(Graphics Canvas)
+        public void drawCircle(Graphics Canvas)//метод отрисовки круга
         {
             if (color == "Red")
             {
@@ -135,15 +135,15 @@ namespace labaoop4_1
                 Canvas.DrawEllipse(new Pen(Color.Black), x - rad, y - rad, rad * 2, rad * 2);
             }
         }
-        public void setColor(string Color)
+        public void setColor(string Color)//сеттер цвета круга
         {
             color = Color;
         }
-        public string getColor()
+        public string getColor()//геттер цвета круга
         {
             return color;
         }
-       public bool checkCircle(MouseEventArgs e)
+       public bool checkCircle(MouseEventArgs e)//проверка на попадание курсора мыши во внутрь круга
         {
             if (ctrl) {
                 if (Math.Pow(e.X - x, 2) + Math.Pow(e.Y - y, 2) <= Math.Pow(rad, 2) && color!="Red")
@@ -154,7 +154,7 @@ namespace labaoop4_1
             }
             return false;
         }
-        public void setCtrl(bool a)
+        public void setCtrl(bool a)//сеттер флага выделения
         {
             ctrl = a;
         }
